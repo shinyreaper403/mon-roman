@@ -3,42 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lexique Draekovare</title>
+    <title>Lexique - Les Chroniques Ancestrales</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="grimoire">
-        <nav class="navigation-velkare">
-            <div class="diams left"></div>
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li class="separator">✦</li>
-                <li><a href="persos.html">Personnages</a></li>
-                <li class="separator">✦</li>
-                <li><a href="lexique.html">Lexique</a></li>
-            </ul>
-            <div class="diams right"></div>
-        </nav>
-
-        <h1>Lexique Ancien</h1>
-
-        <div class="formulaire-ajout">
-            <h3>Consigner un nouveau terme</h3>
-            <input type="text" id="terme" placeholder="Nom du terme (ex: Velkare)">
-            <input type="text" id="categorie" placeholder="Catégorie (Lieu, Magie, Race...)">
-            <textarea id="definition" rows="4" placeholder="Définition du terme..."></textarea>
-            
-            <button id="btnAjouterLexique">Inscrire au Lexique</button>
+        
+        <div class="header-tools">
+            <div class="recherche-mini">
+                <span class="search-icon">🔎</span>
+                <input type="text" id="globalSearch" placeholder="Rechercher dans les archives..." autocomplete="off">
+                <div id="resultatsRecherche" class="results-dropdown"></div>
+            </div>
         </div>
 
-        <hr style="border: 0; border-top: 1px solid #8b5a2b; margin: 40px 0; opacity: 0.3;">
+        <h1>Le Lexique des Anciens</h1>
 
-        <div id="liste-lexique"></div>
+        <nav class="navigation-velkare">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="persos.html">Personnages</a></li>
+                <li><a href="bestiaire.html">Bestiaire</a></li>
+                <li><a href="lexique.html" style="color: #e3d3ad; letter-spacing: 6px;">Lexique</a></li>
+                <li><a href="carte.html">Carte</a></li>
+            </ul>
+        </nav>
 
-        <a href="index.html" class="retour">« Retour à l'accueil</a>
+        <div class="contenu-page">
+            
+            <section class="formulaire-ajout">
+                <h2 style="font-size: 1.2em; margin-bottom: 20px;">Inscrire un nouveau terme</h2>
+                <form id="formLexique">
+                    <input type="text" id="terme" placeholder="Nom du terme (ex: Draekovare, Mana...)" required>
+                    
+                    <select id="categorieLexique" style="width: 100%; padding: 10px; background: #1a1a1a; color: #e3d3ad; border: 1px solid #3d3f43; margin-bottom: 20px; font-family: 'Spectral', serif;">
+                        <option value="Espèce">Espèce</option>
+                        <option value="Magie / Énergie">Magie / Énergie</option>
+                        <option value="Géographie">Géographie / Lieux</option>
+                        <option value="Culture / Objet">Culture / Objet</option>
+                        <option value="Histoire">Événement Historique</option>
+                    </select>
+
+                    <textarea id="definition" placeholder="Décrivez la signification de ce terme pour l'éternité..." rows="4" required></textarea>
+                    
+                    <button type="submit">Inscrire aux Archives</button>
+                </form>
+            </section>
+
+            <div id="listeLexique">
+                </div>
+
+        </div>
     </div>
 
+    <script src="recherche.js"></script>
     <script src="gestion_lexique.js"></script>
 </body>
 </html>

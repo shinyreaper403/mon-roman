@@ -3,44 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archives du Monde</title>
+    <title>Les Chroniques Ancestrales</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="grimoire">
         
+        <div class="header-tools">
+            <div class="recherche-mini">
+                <span style="opacity: 0.5;">🔎</span>
+                <input type="text" id="globalSearch" placeholder="Rechercher..." autocomplete="off">
+                <div id="resultatsRecherche" class="results-dropdown"></div>
+            </div>
+        </div>
+
         <h1>Les Chroniques Ancestrales</h1>
 
         <nav class="navigation-velkare">
-            <div class="diams left"></div>
             <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li class="separator">✦</li>
+                <li><a href="index.html" style="color: #e3d3ad;">Accueil</a></li>
                 <li><a href="persos.html">Personnages</a></li>
-                <li class="separator">✦</li>
                 <li><a href="lexique.html">Lexique</a></li>
+                <li><a href="#">Carte</a></li>
             </ul>
-            <div class="diams right"></div>
         </nav>
 
-        <div class="contenu-page" style="text-align: center;">
-            <p style="font-style: italic; font-size: 1.3em; color: #4a3728; margin-top: 30px;">
-                "Ici commence le recensement des légendes et le savoir de tous les peuples."
+        <div class="contenu-page">
+            <p class="intro-text">
+                Bienvenue, voyageur, dans les archives sacrées de Velkare. 
+                Ici sont consignés les noms de ceux qui ont bravé les flammes des dragons 
+                et les secrets qui façonnent notre monde.
             </p>
+            
+            <hr>
 
-            <div style="margin-top: 50px; line-height: 1.8; font-size: 1.1em;">
-                <p>Bienvenue dans l'interface centrale de votre univers.</p>
-                <p>Ce grimoire numérique permet de consigner les fiches détaillées des héros, des créatures et des lieux, ainsi que de définir chaque concept fondamental dans le lexique.</p>
+            <div class="liens-centraux">
+                <a href="persos.html" class="lien-noble">◈ Portraits des Héros ◈</a>
+                <a href="lexique.html" class="lien-noble">◈ Savoirs Oubliés ◈</a>
             </div>
 
-            <div style="margin-top: 40px; display: flex; justify-content: center; gap: 20px;">
-                <a href="persos.html" id="boutonMagique" style="text-decoration: none;">Recenser un Héros</a>
-                <a href="lexique.html" id="boutonMagique" style="text-decoration: none;">Ouvrir le Lexique</a>
-            </div>
+            <p style="color: #868177; font-size: 0.8em; letter-spacing: 2px; text-transform: uppercase; margin-top: 40px; opacity: 0.6;">
+                Que votre quête soit guidée par la lumière des anciens.
+            </p>
         </div>
 
     </div>
 
+    <script src="recherche.js"></script>
 </body>
 </html>

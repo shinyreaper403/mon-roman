@@ -1,93 +1,89 @@
-const btnAjouter = document.getElementById('btnAjouterLexique');
-const listeDiv = document.getElementById('liste-lexique');
-let modeEditionId = null;
+/**
+ * GESTIONNAIRE DU LEXIQUE - VERSION STABLE
+ */
 
-// Chargement automatique au démarrage
-window.onload = afficherLexique;
-
-btnAjouter.addEventListener('click', () => {
-    const terme = document.getElementById('terme').value;
-    const categorie = document.getElementById('categorie').value;
-    const definition = document.getElementById('definition').value;
-
-    if (terme.trim() === "") {
-        alert("Veuillez entrer un nom de terme.");
-        return;
-    }
-
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. ÉLÉMENTS DU DOM
+    const formLexique = document.getElementById('formLexique');
+    const listeLexique = document.getElementById('listeLexique');
+    
+    // 2. RÉCUPÉRATION DES DONNÉES
+    // On s'assure d'utiliser la même clé que recherche.js
     let lexique = JSON.parse(localStorage.getItem('monGrimoireLexique')) || [];
 
-    if (modeEditionId) {
-        // On met à jour un terme existant
-        lexique = lexique.map(item => 
-            item.id === modeEditionId ? { ...item, terme, categorie, definition } : item
-        );
-        modeEditionId = null;
-        btnAjouter.innerText = "Inscrire au Lexique";
-    } else {
-        // On crée un nouveau terme
-        const nouvelItem = {
-            id: Date.now(),
-            terme: terme,
-            categorie: categorie,
-            definition: definition
-        };
-        lexique.push(nouvelItem);
+    // 3. FONCTION D'AFFICHAGE DES FICHES
+    function afficherLexique() {
+        if (!listeLexique) return;
+        
+        // On vide la liste actuelle
+        listeLexique.innerHTML = "";
+
+        // Tri par ordre alphabétique
+        lexique.sort((a, b) => a.terme.localeCompare(b.terme));
+
+        // Création des fiches
+        lexique.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'fiche-lexique';
+            card.innerHTML = `
+                <div class="actions-fiche" style="float: right;">
+                    <button class="btn-suppr" data-index="${index}" style="background:none; border:1px solid #630000; color:#ff3300; cursor:pointer; font-size:0.7em; padding:2px 5px;">Supprimer</button>
+                </div>
+                <span class="res-type" style="display:block; margin-bottom:5px;">📖 ${item.categorie}</span>
+                <h3 class="res-name" style="margin:0; font-size:1.4em;">${item.terme}</h3>
+                <p style="margin-top:10px; line-height:1.6; color:#c9c2b5;">${item.definition}</p>
+            `;
+            listeLexique.appendChild(card);
+        });
+
+        // On attache les événements de suppression après la création
+        attacherEvenementsSuppression();
     }
-    
-    localStorage.setItem('monGrimoireLexique', JSON.stringify(lexique));
-    
-    // On vide les champs
-    document.getElementById('terme').value = "";
-    document.getElementById('categorie').value = "";
-    document.getElementById('definition').value = "";
-    
+
+    // 4. FONCTION D'AJOUT
+    if (formLexique) {
+        formLexique.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Récupération précise des valeurs
+            const termeInput = document.getElementById('terme');
+            const catSelect = document.getElementById('categorieLexique');
+            const defTextarea = document.getElementById('definition');
+
+            if (!termeInput || !defTextarea) return;
+
+            const nouveauTerme = {
+                terme: termeInput.value.trim(),
+                categorie: catSelect.value,
+                definition: defTextarea.value.trim()
+            };
+
+            // Ajout et Sauvegarde
+            lexique.push(nouveauTerme);
+            localStorage.setItem('monGrimoireLexique', JSON.stringify(lexique));
+            
+            // Reset et Rafraîchissement
+            formLexique.reset();
+            afficherLexique();
+            console.log("Terme ajouté : " + nouveauTerme.terme);
+        });
+    }
+
+    // 5. GESTION DE LA SUPPRESSION (MÉTHODE MODERNE)
+    function attacherEvenementsSuppression() {
+        const boutons = document.querySelectorAll('.btn-suppr');
+        boutons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const index = this.getAttribute('data-index');
+                if (confirm("Voulez-vous effacer ce savoir des archives ?")) {
+                    lexique.splice(index, 1);
+                    localStorage.setItem('monGrimoireLexique', JSON.stringify(lexique));
+                    afficherLexique();
+                }
+            });
+        });
+    }
+
+    // Lancement au chargement de la page
     afficherLexique();
 });
-
-function afficherLexique() {
-    let lexique = JSON.parse(localStorage.getItem('monGrimoireLexique')) || [];
-    
-    // Tri alphabétique automatique
-    lexique.sort((a, b) => a.terme.localeCompare(b.terme));
-    
-    listeDiv.innerHTML = "";
-
-    lexique.forEach(item => {
-        listeDiv.innerHTML += `
-            <div class="fiche-lexique">
-                <div class="actions-fiche">
-                    <button class="btn-action edit" onclick="preparerModif(${item.id})">Modifier</button>
-                    <button class="btn-action delete" onclick="supprimerTerme(${item.id})">❌</button>
-                </div>
-                <h3>${item.terme}</h3>
-                <span class="categorie-label">${item.categorie || 'Non classé'}</span>
-                <p class="definition-texte">${item.definition}</p>
-            </div>
-        `;
-    });
-}
-
-function preparerModif(id) {
-    let lexique = JSON.parse(localStorage.getItem('monGrimoireLexique')) || [];
-    const item = lexique.find(i => i.id === id);
-    
-    if(item) {
-        document.getElementById('terme').value = item.terme;
-        document.getElementById('categorie').value = item.categorie;
-        document.getElementById('definition').value = item.definition;
-        
-        modeEditionId = id;
-        btnAjouter.innerText = "Mettre à jour le terme";
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-}
-
-function supprimerTerme(id) {
-    if(confirm("Voulez-vous vraiment effacer ce terme du lexique ?")) {
-        let lexique = JSON.parse(localStorage.getItem('monGrimoireLexique')) || [];
-        lexique = lexique.filter(i => i.id !== id);
-        localStorage.setItem('monGrimoireLexique', JSON.stringify(lexique));
-        afficherLexique();
-    }
-}

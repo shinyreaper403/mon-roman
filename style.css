@@ -1,338 +1,164 @@
-/* =========================================
-   1. POLICES ET FOND DE PAGE
-   ========================================= */
-@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Spectral:ital,wght@0,400;0,700;1,400&display=swap');
+/* --- POLICES & RESET --- */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Spectral:ital,wght@0,300;0,500;1,300&display=swap');
+
+* { box-sizing: border-box; }
 
 body {
-    background-color: #1a120b;
-    background-image: url('https://www.transparenttextures.com/patterns/dark-leather.png');
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-    margin: 0;
-    padding: 40px 20px;
+    background-color: #0d0e10;
+    background-image: radial-gradient(circle at center, #1c1e22 0%, #0d0e10 100%);
     font-family: 'Spectral', serif;
+    color: #c9c2b5;
+    margin: 0; padding: 20px;
+    display: flex; justify-content: center; min-height: 100vh;
 }
 
-/* =========================================
-   2. LE GRIMOIRE (CONTENEUR PRINCIPAL)
-   ========================================= */
-.grimoire {
-    background-color: #e3d3ad;
-    background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-    color: #2c1e14;
-    padding: 50px;
-    width: 100%;
-    max-width: 850px;
-    min-height: 80vh;
-    border: 15px solid #3d2b1f;
-    box-shadow: 0 0 50px rgba(0,0,0,0.8);
-    position: relative;
-    box-sizing: border-box;
-}
-
-/* Titre principal avec l'emblème Draekovare */
-h1 {
-    font-family: 'MedievalSharp', cursive;
-    text-align: center;
-    font-size: 3.5em;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    margin-bottom: 10px;
-}
-
-h1::after {
-    content: "───────── 🐉 ─────────";
-    display: block;
-    font-size: 0.3em;
-    margin-top: 10px;
-    color: #8b5a2b;
-}
-
-/* =========================================
-   3. NAVIGATION VELKARE (MENU HORIZONTAL)
-   ========================================= */
-.navigation-velkare {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 40px 0;
-    padding: 10px 0;
-    border-top: 2px solid #3d2b1f;
-    border-bottom: 2px solid #3d2b1f;
-    background: rgba(44, 30, 20, 0.05);
-}
-
-.navigation-velkare ul {
-    display: flex;
-    align-items: center;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.navigation-velkare li {
-    margin: 0 15px;
-}
-
-.separator {
-    color: #8b5a2b;
-    font-size: 0.8em;
-    opacity: 0.6;
-}
-
-.navigation-velkare a {
-    font-family: 'MedievalSharp', cursive;
+/* ANTI-VIOLET ET ANTI-BLEU */
+a, a:visited, a:active {
     text-decoration: none;
-    color: #4a3728;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+/* --- LE GRIMOIRE --- */
+.grimoire {
+    background: #141619;
+    width: 100%; max-width: 900px;
+    padding: 60px;
+    border: 1px solid rgba(196, 164, 132, 0.15);
+    box-shadow: 0 30px 100px rgba(0,0,0,0.8);
+    position: relative; text-align: center;
+}
+
+h1 { font-family: 'Cinzel', serif; color: #e3d3ad; font-size: 2.5em; letter-spacing: 5px; margin-bottom: 30px; text-transform: uppercase; }
+
+/* --- NAVIGATION --- */
+.navigation-velkare { margin-bottom: 50px; border-top: 1px solid rgba(227, 211, 173, 0.1); border-bottom: 1px solid rgba(227, 211, 173, 0.1); padding: 15px 0; }
+.navigation-velkare ul { list-style: none; display: flex; justify-content: center; gap: 40px; padding: 0; margin: 0; }
+.navigation-velkare a { color: #868177; font-family: 'Cinzel', serif; font-size: 0.85em; text-transform: uppercase; }
+.navigation-velkare a:hover { color: #e3d3ad; letter-spacing: 2px; }
+
+/* --- RECHERCHE --- */
+.header-tools { display: flex; justify-content: center; margin-bottom: 30px; }
+.recherche-mini { position: relative; display: flex; align-items: center; border-bottom: 1px solid rgba(227, 211, 173, 0.3); padding: 5px; width: 200px; transition: width 0.4s; }
+.recherche-mini:focus-within { width: 300px; border-color: #e3d3ad; }
+#globalSearch { background: transparent; border: none; color: #e3d3ad; width: 100%; outline: none; padding-left: 10px; font-family: 'Spectral', serif;}
+
+.results-dropdown { position: absolute; top: 105%; left: 0; width: 100%; background: #141619; border: 1px solid rgba(227, 211, 173, 0.2); z-index: 999; display: none; text-align: left; }
+
+/* --- LIENS CENTRAUX (LES BOUTONS QUI NE MARCHAIENT PAS) --- */
+.liens-centraux {
+    display: flex; flex-direction: column; gap: 20px; margin-top: 30px;
+    position: relative; z-index: 10; /* Force le passage devant tout le reste */
+}
+
+.lien-noble {
+    font-family: 'Cinzel', serif;
     font-size: 1.1em;
+    color: #e3d3ad !important;
     text-transform: uppercase;
     letter-spacing: 2px;
-    transition: all 0.4s ease;
-}
-
-.navigation-velkare a:hover {
-    color: #8b0000;
-    text-shadow: 0 0 8px rgba(139, 0, 0, 0.4);
-    letter-spacing: 4px;
-}
-
-/* Petites pointes sur les côtés du menu */
-.diams {
-    width: 10px;
-    height: 10px;
-    background: #3d2b1f;
-    transform: rotate(45deg);
-    position: absolute;
-}
-.diams.left { left: -5px; }
-.diams.right { right: -5px; }
-
-/* =========================================
-   4. FORMULAIRE DE SAISIE (ÉPURÉ & CENTRÉ)
-   ========================================= */
-.formulaire-ajout {
-    width: 100%;
-    max-width: 600px; /* Largeur idéale pour le centrage sous les écritures */
-    margin: 0 auto 60px auto;
-    text-align: center;
-}
-
-.formulaire-ajout h3 {
-    font-family: 'MedievalSharp', cursive;
-    color: #4a3728;
-    margin-bottom: 25px;
-}
-
-/* Champs style "ligne de parchemin" */
-.formulaire-ajout input, 
-.formulaire-ajout textarea {
-    display: block;
-    width: 100%;
-    margin: 15px 0;
-    padding: 12px;
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid #8b5a2b;
-    font-family: 'Spectral', serif;
-    font-size: 1.2em;
-    color: #2c1e14;
-    outline: none;
-    box-sizing: border-box;
-    transition: 0.3s;
-}
-
-.formulaire-ajout input:focus, 
-.formulaire-ajout textarea:focus {
-    border-bottom: 2px solid #8b0000;
-    background: rgba(139, 0, 0, 0.03);
-}
-
-.form-row {
-    display: flex;
-    gap: 20px;
-}
-
-.form-row input {
-    flex: 1;
-}
-
-/* Bouton Sceau Magique */
-#btnAjouter, #boutonMagique {
-    background-color: #3d2b1f;
-    color: #e3d3ad;
-    border: 2px solid #8b5a2b;
-    padding: 12px 30px;
+    padding: 15px;
     cursor: pointer;
-    font-family: 'MedievalSharp', cursive;
-    font-size: 1.1em;
-    text-transform: uppercase;
-    margin: 20px auto;
-    display: inline-block;
-    transition: 0.3s;
+    border: 1px solid transparent;
 }
 
-#btnAjouter:hover, #boutonMagique:hover {
-    background-color: #8b0000;
-    color: white;
-    box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+.lien-noble:hover {
+    letter-spacing: 5px;
+    background: rgba(227, 211, 173, 0.05);
+    border: 1px solid rgba(227, 211, 173, 0.2);
 }
 
-/* =========================================
-   5. AFFICHAGE DES FICHES PERSONNAGES
-   ========================================= */
-.fiche-cadre {
-    display: flex;
-    gap: 25px;
-    border: 1px solid #8b5a2b;
-    padding: 20px;
-    margin-bottom: 40px;
-    background: rgba(0, 0, 0, 0.02);
-    position: relative;
-    text-align: left;
-}
-
-.photo-perso img {
-    width: 160px;
-    height: 200px;
-    object-fit: cover;
-    border: 4px double #3d2b1f;
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
-}
-
-.infos-perso {
-    flex: 1;
-}
-
-.fiche-entete h3 {
-    margin: 0;
-    font-family: 'MedievalSharp', cursive;
-    color: #8b0000;
-    font-size: 2em;
-}
-
-.sous-titre {
-    display: block;
-    font-style: italic;
-    color: #5d4037;
-    margin-bottom: 15px;
-    border-bottom: 1px solid rgba(139, 90, 43, 0.2);
-}
-
-.biographie {
-    margin-top: 15px;
-    line-height: 1.6;
-}
-
-.btn-supprimer {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    color: #8b0000;
-    font-size: 1.2em;
-    cursor: pointer;
-    opacity: 0.6;
-    transition: 0.3s;
-}
-
-.btn-supprimer:hover {
-    opacity: 1;
-    transform: scale(1.2);
-}
-
-.retour {
-    display: block;
-    text-align: center;
-    margin-top: 50px;
-    text-decoration: none;
-    color: #8b5a2b;
-    font-family: 'MedievalSharp', cursive;
-
-/* Style des boutons d'action sur les fiches */
-.actions-fiche {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    display: flex;
-    gap: 10px;
-}
-
-.btn-action {
-    background: none;
-    border: 1px solid #8b5a2b;
-    font-family: 'MedievalSharp', cursive;
-    cursor: pointer;
-    font-size: 0.8em;
-    padding: 3px 8px;
-    transition: 0.3s;
-}
-
-.btn-action.edit { color: #4a3728; border-color: #8b5a2b; }
-.btn-action.edit:hover { background: #8b5a2b; color: white; }
-
-.btn-action.delete { color: #8b0000; border-color: #8b0000; }
-.btn-action.delete:hover { background: #8b0000; color: white; }
-
-/* Adaptation pour téléphone */
-@media (max-width: 600px) {
-    .grimoire {
-        padding: 20px;
-        border-width: 5px;
-    }
-    .navigation-velkare ul {
-        flex-direction: column; /* Menu vertical sur mobile */
-        gap: 10px;
-    }
-    .display-perso {
-        flex-direction: column; /* Image au-dessus du texte sur mobile */
-        align-items: center;
-    }
-    .photo-perso img {
-        width: 100%;
-        height: auto;
-/* --- STYLE SPÉCIFIQUE AU LEXIQUE --- */
-
+/* --- LEXIQUE (ANTI-CASES BLANCHES) --- */
 .fiche-lexique {
-    display: block;           /* On enlève le mode "côte à côte" */
-    border: 1px solid #8b5a2b;
-    padding: 25px;
-    margin-bottom: 30px;
-    background: rgba(0, 0, 0, 0.02);
-    position: relative;
+    background: rgba(255, 255, 255, 0.03) !important; /* Force le fond sombre */
+    border: 1px solid rgba(227, 211, 173, 0.1);
+    padding: 25px; margin-bottom: 20px; text-align: left;
+}
+
+.fiche-lexique h3 { color: #e3d3ad; font-family: 'Cinzel', serif; margin-top: 0; }
+.fiche-lexique p { color: #c9c2b5; line-height: 1.6; }
+.categorie-label { color: #868177; font-size: 0.8em; text-transform: uppercase; display: block; margin-bottom: 10px; }
+
+/* --- AUTRES --- */
+.intro-text { font-size: 1.2em; line-height: 1.8; max-width: 600px; margin: 40px auto; font-style: italic; color: #a5a095; }
+hr { border: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(227, 211, 173, 0.3), transparent); margin: 50px 0; }
+
+/* --- FIX POUR LES CASES BLANCHES --- */
+.formulaire-ajout, .fiche-lexique, .modal-contenu {
+    background: #1c1e22 !important; /* Force un gris très sombre */
+    color: #c9c2b5 !important;
+    border: 1px solid rgba(227, 211, 173, 0.2);
+}
+
+/* --- STYLE DES FORMULAIRES (ANTI-CASES BLANCHES) --- */
+.formulaire-ajout {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 30px;
+    border: 1px solid rgba(227, 211, 173, 0.2);
+    margin-bottom: 40px;
     text-align: left;
-    clear: both;             
-
- /* Empêche les fiches de se monter dessus */
 }
 
-.fiche-lexique h3 {
-    margin: 0;
-    font-family: 'MedievalSharp', cursive;
-    color: #8b0000;
-    font-size: 1.8em;
+/* On cible spécifiquement tous les champs de saisie */
+input[type="text"], 
+input[type="file"],
+textarea, 
+select {
+    width: 100%;
+    background-color: #0d0e10 !important; /* Fond noir profond */
+    color: #e3d3ad !important;            /* Texte doré */
+    border: 1px solid #3d3f43 !important; /* Bordure grise discrète */
+    padding: 12px;
+    margin-bottom: 15px;
+    font-family: 'Spectral', serif;
+    font-size: 1em;
+    border-radius: 0; /* Garde le look parchemin carré */
+    box-sizing: border-box;
 }
 
-.fiche-lexique .categorie-label {
-    display: inline-block;
-    background: #3d2b1f;
-    color: #e3d3ad;
-    padding: 2px 10px;
-    font-size: 0.8em;
-    text-transform: uppercase;
-    margin-top: 5px;
-    border-radius: 3px;
+/* Effet quand on clique dans une case */
+input:focus, textarea:focus {
+    border-color: #e3d3ad !important;
+    outline: none;
+    background-color: #141619 !important; /* Légèrement plus clair */
+    box-shadow: 0 0 5px rgba(227, 211, 173, 0.2);
 }
 
-.fiche-lexique .definition-texte {
-    margin-top: 15px;
-    line-height: 1.6;
-    color: #2c1e14;
-    white-space: pre-wrap; /* Garde les retours à la ligne */
+/* Style du texte à l'intérieur des cases (placeholder) */
+::placeholder {
+    color: #868177;
+    font-style: italic;
+    opacity: 0.7;
 }
-    }
+
+/* --- RÉGLAGE DES PHOTOS --- */
+.medaillon-perso {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover; /* Empêche l'image d'être écrasée */
+    border: 2px solid rgba(227, 211, 173, 0.3);
+    background: #0d0e10;
+    display: block;
 }
+
+#contenuFicheComplete img {
+    width: 250px;
+    max-height: 350px;
+    object-fit: cover;
+    border: 1px solid #e3d3ad;
+}}
+
+/* Pour la grande photo dans la modale */
+#contenuFicheComplete img {
+    width: 200px;
+    height: 280px;
+    object-fit: cover;
+    border: 1px solid #e3d3ad;
+    display: block;
+}
+
+/* Force les textes en blanc/beige dans les cases */
+.formulaire-ajout h3, .formulaire-ajout label, .fiche-lexique h3 {
+    color: #e3d3ad !important;
 }

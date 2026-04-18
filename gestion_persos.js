@@ -1,93 +1,111 @@
-const btnAjouter = document.getElementById('btnAjouter');
-const listeDiv = document.getElementById('liste-persos');
-let modeEditionId = null; // Variable pour savoir quel perso on modifie
-
-window.onload = afficherPersos;
-
-btnAjouter.addEventListener('click', () => {
-    const nom = document.getElementById('nom').value;
-    const titre = document.getElementById('titre').value;
-    const race = document.getElementById('race').value;
-    const capacite = document.getElementById('capacite').value;
-    const image = document.getElementById('imageLink').value || 'https://via.placeholder.com/150?text=No+Image';
-    const bio = document.getElementById('bio').value;
-
-    if(nom === "") return alert("Le nom est obligatoire !");
+document.addEventListener('DOMContentLoaded', () => {
+    const formPerso = document.getElementById('formPerso');
+    const zoneFormulaire = document.getElementById('zoneFormulaire');
+    const toggleBtn = document.getElementById('toggleFormBtn');
+    const listePersos = document.getElementById('listePersos');
+    const modal = document.getElementById('modalFiche');
+    const contenuModal = document.getElementById('contenuFicheComplete');
+    const fermerBtn = document.getElementById('fermerModal');
 
     let persos = JSON.parse(localStorage.getItem('monGrimoirePersos')) || [];
 
-    if (modeEditionId) {
-        // MODE MODIFICATION
-        persos = persos.map(p => p.id === modeEditionId ? { ...p, nom, titre, race, capacite, image, bio } : p);
-        btnAjouter.innerText = "Inscrire au Grimoire";
-        modeEditionId = null;
-    } else {
-        // MODE AJOUT
-        const perso = { id: Date.now(), nom, titre, race, capacite, image, bio };
-        persos.push(perso);
+    // --- 1. GESTION DE L'AFFICHAGE DU FORMULAIRE ---
+    toggleBtn.addEventListener('click', () => {
+        if (zoneFormulaire.style.display === "none") {
+            zoneFormulaire.style.display = "block";
+            toggleBtn.textContent = "◈ Fermer le registre ◈";
+        } else {
+            zoneFormulaire.style.display = "none";
+            toggleBtn.textContent = "◈ Inscrire un nouveau Héros ◈";
+        }
+    });
+
+    // --- 2. AFFICHAGE DE LA GRILLE ---
+    function afficherGrille() {
+        if (!listePersos) return;
+        listePersos.innerHTML = "";
+        
+        persos.sort((a, b) => a.nom.localeCompare(b.nom));
+
+        persos.forEach((p, index) => {
+            const container = document.createElement('div');
+            container.className = 'medaillon-container';
+            container.innerHTML = `
+                <img src="${p.photo || 'https://via.placeholder.com/150'}" class="medaillon-perso">
+                <span class="medaillon-name">${p.nom}</span>
+            `;
+            container.onclick = () => ouvrirModale(index);
+            listePersos.appendChild(container);
+        });
     }
-    
-    localStorage.setItem('monGrimoirePersos', JSON.stringify(persos));
-    resetFormulaire();
-    afficherPersos();
-});
 
-function afficherPersos() {
-    let persos = JSON.parse(localStorage.getItem('monGrimoirePersos')) || [];
-    listeDiv.innerHTML = "";
-
-    persos.forEach(p => {
-        listeDiv.innerHTML += `
-            <div class="fiche-cadre display-perso">
-                <div class="photo-perso">
-                    <img src="${p.image}" alt="Portrait">
-                </div>
-                <div class="infos-perso">
-                    <div class="fiche-entete">
-                        <h3>${p.nom}</h3>
-                        <span class="sous-titre">${p.titre}</span>
-                        <div class="actions-fiche">
-                            <button class="btn-action edit" onclick="preparerModification(${p.id})">✎ Modifier</button>
-                            <button class="btn-action delete" onclick="supprimerPerso(${p.id})">❌</button>
-                        </div>
-                    </div>
-                    <p><strong>Race :</strong> ${p.race} | <strong>Capacité :</strong> ${p.capacite}</p>
-                    <p class="biographie">${p.bio}</p>
+    // --- 3. OUVERTURE DE LA FICHE (MODALE) ---
+    function ouvrirModale(index) {
+        const p = persos[index];
+        contenuModal.innerHTML = `
+            <div style="display:flex; gap:30px; align-items:flex-start;">
+                <img src="${p.photo || 'https://via.placeholder.com/200'}" style="width:250px; border:1px solid #e3d3ad33;">
+                <div style="flex:1; text-align:left;">
+                    <h2 style="text-align:left; margin-top:0;">${p.nom}</h2>
+                    <p><strong>Race :</strong> ${p.race || 'Inconnue'} | <strong>Classe :</strong> ${p.classe || 'Inconnue'}</p>
+                    <p><strong>Alignement :</strong> ${p.alignement || 'Neutre'}</p>
+                    <hr style="margin: 15px 0; opacity: 0.2;">
+                    <p style="white-space: pre-wrap;">${p.histoire || 'Aucun récit n\'a encore été écrit...'}</p>
+                    <button onclick="supprimerPerso(${index})" class="btn-suppr">Bannir des archives</button>
                 </div>
             </div>
         `;
-    });
-}
-
-function preparerModification(id) {
-    let persos = JSON.parse(localStorage.getItem('monGrimoirePersos')) || [];
-    const p = persos.find(p => p.id === id);
-    
-    if(p) {
-        document.getElementById('nom').value = p.nom;
-        document.getElementById('titre').value = p.titre;
-        document.getElementById('race').value = p.race;
-        document.getElementById('capacite').value = p.capacite;
-        document.getElementById('imageLink').value = p.image;
-        document.getElementById('bio').value = p.bio;
-
-        modeEditionId = id;
-        btnAjouter.innerText = "Enregistrer les Changements";
-        window.scrollTo({ top: 0, behavior: 'smooth' }); // Remonte au formulaire
+        modal.style.display = 'flex';
     }
-}
 
-function supprimerPerso(id) {
-    if(confirm("Voulez-vous rayer ce nom du grimoire ?")) {
-        let persos = JSON.parse(localStorage.getItem('monGrimoirePersos')) || [];
-        persos = persos.filter(p => p.id !== id);
+    // --- 4. SAUVEGARDE ---
+    if(formPerso) {
+        formPerso.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const f = document.getElementById('photoPerso').files[0];
+            
+            const pData = {
+                nom: document.getElementById('nomPerso').value,
+                race: document.getElementById('racePerso').value,
+                classe: document.getElementById('classePerso').value,
+                alignement: document.getElementById('alignPerso').value,
+                histoire: document.getElementById('histoirePerso').value
+            };
+
+            if(f) {
+                const reader = new FileReader();
+                reader.onload = function() {
+                    pData.photo = reader.result;
+                    finaliserSauvegarde(pData);
+                };
+                reader.readAsDataURL(f);
+            } else {
+                finaliserSauvegarde(pData);
+            }
+        });
+    }
+
+    function finaliserSauvegarde(data) {
+        persos.push(data);
         localStorage.setItem('monGrimoirePersos', JSON.stringify(persos));
-        afficherPersos();
+        formPerso.reset();
+        zoneFormulaire.style.display = "none";
+        toggleBtn.textContent = "◈ Inscrire un nouveau Héros ◈";
+        afficherGrille();
     }
-}
 
-function resetFormulaire() {
-    document.querySelectorAll('.formulaire-ajout input, .formulaire-ajout textarea').forEach(el => el.value = "");
-    modeEditionId = null;
-    btnAjouter.innerText = "Inscrire au Grimoire";
-}
+    // --- 5. SUPPRESSION ---
+    window.supprimerPerso = (index) => {
+        if(confirm("Effacer ce héros pour l'éternité ?")) {
+            persos.splice(index, 1);
+            localStorage.setItem('monGrimoirePersos', JSON.stringify(persos));
+            modal.style.display = 'none';
+            afficherGrille();
+        }
+    };
+
+    fermerBtn.onclick = () => modal.style.display = 'none';
+    window.onclick = (e) => { if(e.target == modal) modal.style.display = 'none'; };
+    
+    afficherGrille();
+});

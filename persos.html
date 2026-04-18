@@ -2,45 +2,62 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Personnages - Grimoire</title>
+    <title>Personnages - Archives Ancestrales</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="grimoire">
-       <nav class="navigation-velkare">
-    <div class="diams left"></div>
-    <ul>
-        <li><a href="index.html">Accueil</a></li>
-        <li class="separator">✦</li>
-        <li><a href="persos.html">Personnages</a></li>
-        <li class="separator">✦</li>
-        <li><a href="lexique.html">Lexique</a></li>
-    </ul>
-    <div class="diams right"></div>
-</nav>
-
-        <div class="grimoire">
-    <h1>Galerie des Héros</h1>
-
-    <div class="formulaire-ajout">
-        <h3>Nouveau Recensement</h3>
-        <div class="form-row">
-            <input type="text" id="nom" placeholder="Nom du personnage">
-            <input type="text" id="titre" placeholder="Titre ou Épithète">
+        <div class="header-tools">
+            <div class="recherche-mini">
+                <span style="opacity: 0.5;">🔎</span>
+                <input type="text" id="globalSearch" placeholder="Rechercher..." autocomplete="off">
+                <div id="resultatsRecherche" class="results-dropdown"></div>
+            </div>
         </div>
-        <div class="form-row">
-            <input type="text" id="race" placeholder="Race (Velkare, Draekovare...)">
-            <input type="text" id="capacite" placeholder="Capacité Magique / Arme">
+
+        <h1>Les Héros de Velkare</h1>
+
+        <nav class="navigation-velkare">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="persos.html" style="color:#e3d3ad">Personnages</a></li>
+                <li><a href="lexique.html">Lexique</a></li>
+            </ul>
+        </nav>
+
+        <div style="margin-bottom: 30px;">
+            <button id="toggleFormBtn">◈ Inscrire un nouveau Héros ◈</button>
         </div>
-        <input type="text" id="imageLink" placeholder="Lien d'une image (URL)">
-        <textarea id="bio" placeholder="Chronique du personnage..."></textarea>
-        
-        <button id="btnAjouter">Inscrire au Grimoire</button>
+
+        <section id="zoneFormulaire" class="formulaire-ajout" style="display: none;">
+            <h3>Nouveau Compagnon</h3>
+            <form id="formPerso">
+                <input type="text" id="nomPerso" placeholder="Nom du Héros" required>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="racePerso" placeholder="Race (ex: Elfe, Nain...)">
+                    <input type="text" id="classePerso" placeholder="Classe (ex: Mage, Guerrier...)">
+                </div>
+                <input type="text" id="alignPerso" placeholder="Alignement (ex: Loyal Bon)">
+                <textarea id="histoirePerso" placeholder="Racontez sa légende ici..." rows="5"></textarea>
+                <label style="display: block; margin-bottom: 10px; color: #868177;">Portrait du Héros :</label>
+                <input type="file" id="photoPerso" accept="image/*">
+                <button type="submit">Graver dans les Archives</button>
+            </form>
+        </section>
+
+        <hr>
+
+        <div id="listePersos"></div>
     </div>
 
-    <div id="liste-persos" class="contenu-page"></div>
-</div>
+    <div id="modalFiche" class="modal-fiche">
+        <div class="modal-contenu">
+            <span class="fermer-modal" id="fermerModal">&times;</span>
+            <div id="contenuFicheComplete"></div>
+        </div>
+    </div>
 
+    <script src="recherche.js"></script>
     <script src="gestion_persos.js"></script>
 </body>
 </html>
