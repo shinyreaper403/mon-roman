@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Personnages - Grimoire</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="grimoire">
+        <nav class="navigation-velkare">
+    <div class="diams left"></div>
+    <ul>
+        <li><a href="persos.html">Personnages</a></li>
+        <li class="separator">◆</li>
+        <li><a href="lexique.html">Lexique</a></li>
+        <li class="separator">◆</li>
+        <li><a href="carte.html">Carte</a></li>
+        <li class="separator">◆</li>
+        <li><a href="bestiaire.html">Bestiaire</a></li>
+    </ul>
+    <div class="diams right"></div>
+</nav>
+
+        <div class="grimoire">
+    <h1>Galerie des Héros</h1>
+
+    <div class="formulaire-ajout">
+        <h3>Nouveau Recensement</h3>
+        <div class="form-row">
+            <input type="text" id="nom" placeholder="Nom du personnage">
+            <input type="text" id="titre" placeholder="Titre ou Épithète">
+        </div>
+        <div class="form-row">
+            <input type="text" id="race" placeholder="Race (Velkare, Draekovare...)">
+            <input type="text" id="capacite" placeholder="Capacité Magique / Arme">
+        </div>
+        <input type="text" id="imageLink" placeholder="Lien d'une image (URL)">
+        <textarea id="bio" placeholder="Chronique du personnage..."></textarea>
+        
+        <button id="btnAjouter">Inscrire au Grimoire</button>
+    </div>
+
+    <div id="liste-persos" class="contenu-page"></div>
+</div>
+
+    <script src="gestion_persos.js"></script>
+</body>
+</html>

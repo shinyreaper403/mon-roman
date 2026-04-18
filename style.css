@@ -1,0 +1,279 @@
+/* =========================================
+   1. POLICES ET FOND DE PAGE
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Spectral:ital,wght@0,400;0,700;1,400&display=swap');
+
+body {
+    background-color: #1a120b;
+    background-image: url('https://www.transparenttextures.com/patterns/dark-leather.png');
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px 20px;
+    font-family: 'Spectral', serif;
+}
+
+/* =========================================
+   2. LE GRIMOIRE (CONTENEUR PRINCIPAL)
+   ========================================= */
+.grimoire {
+    background-color: #e3d3ad;
+    background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+    color: #2c1e14;
+    padding: 50px;
+    width: 100%;
+    max-width: 850px;
+    min-height: 80vh;
+    border: 15px solid #3d2b1f;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Titre principal avec l'emblème Draekovare */
+h1 {
+    font-family: 'MedievalSharp', cursive;
+    text-align: center;
+    font-size: 3.5em;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin-bottom: 10px;
+}
+
+h1::after {
+    content: "───────── 🐉 ─────────";
+    display: block;
+    font-size: 0.3em;
+    margin-top: 10px;
+    color: #8b5a2b;
+}
+
+/* =========================================
+   3. NAVIGATION VELKARE (MENU HORIZONTAL)
+   ========================================= */
+.navigation-velkare {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0;
+    padding: 10px 0;
+    border-top: 2px solid #3d2b1f;
+    border-bottom: 2px solid #3d2b1f;
+    background: rgba(44, 30, 20, 0.05);
+}
+
+.navigation-velkare ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navigation-velkare li {
+    margin: 0 15px;
+}
+
+.separator {
+    color: #8b5a2b;
+    font-size: 0.8em;
+    opacity: 0.6;
+}
+
+.navigation-velkare a {
+    font-family: 'MedievalSharp', cursive;
+    text-decoration: none;
+    color: #4a3728;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.4s ease;
+}
+
+.navigation-velkare a:hover {
+    color: #8b0000;
+    text-shadow: 0 0 8px rgba(139, 0, 0, 0.4);
+    letter-spacing: 4px;
+}
+
+/* Petites pointes sur les côtés du menu */
+.diams {
+    width: 10px;
+    height: 10px;
+    background: #3d2b1f;
+    transform: rotate(45deg);
+    position: absolute;
+}
+.diams.left { left: -5px; }
+.diams.right { right: -5px; }
+
+/* =========================================
+   4. FORMULAIRE DE SAISIE (ÉPURÉ & CENTRÉ)
+   ========================================= */
+.formulaire-ajout {
+    width: 100%;
+    max-width: 600px; /* Largeur idéale pour le centrage sous les écritures */
+    margin: 0 auto 60px auto;
+    text-align: center;
+}
+
+.formulaire-ajout h3 {
+    font-family: 'MedievalSharp', cursive;
+    color: #4a3728;
+    margin-bottom: 25px;
+}
+
+/* Champs style "ligne de parchemin" */
+.formulaire-ajout input, 
+.formulaire-ajout textarea {
+    display: block;
+    width: 100%;
+    margin: 15px 0;
+    padding: 12px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #8b5a2b;
+    font-family: 'Spectral', serif;
+    font-size: 1.2em;
+    color: #2c1e14;
+    outline: none;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+.formulaire-ajout input:focus, 
+.formulaire-ajout textarea:focus {
+    border-bottom: 2px solid #8b0000;
+    background: rgba(139, 0, 0, 0.03);
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row input {
+    flex: 1;
+}
+
+/* Bouton Sceau Magique */
+#btnAjouter, #boutonMagique {
+    background-color: #3d2b1f;
+    color: #e3d3ad;
+    border: 2px solid #8b5a2b;
+    padding: 12px 30px;
+    cursor: pointer;
+    font-family: 'MedievalSharp', cursive;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    margin: 20px auto;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+#btnAjouter:hover, #boutonMagique:hover {
+    background-color: #8b0000;
+    color: white;
+    box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+}
+
+/* =========================================
+   5. AFFICHAGE DES FICHES PERSONNAGES
+   ========================================= */
+.fiche-cadre {
+    display: flex;
+    gap: 25px;
+    border: 1px solid #8b5a2b;
+    padding: 20px;
+    margin-bottom: 40px;
+    background: rgba(0, 0, 0, 0.02);
+    position: relative;
+    text-align: left;
+}
+
+.photo-perso img {
+    width: 160px;
+    height: 200px;
+    object-fit: cover;
+    border: 4px double #3d2b1f;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+}
+
+.infos-perso {
+    flex: 1;
+}
+
+.fiche-entete h3 {
+    margin: 0;
+    font-family: 'MedievalSharp', cursive;
+    color: #8b0000;
+    font-size: 2em;
+}
+
+.sous-titre {
+    display: block;
+    font-style: italic;
+    color: #5d4037;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(139, 90, 43, 0.2);
+}
+
+.biographie {
+    margin-top: 15px;
+    line-height: 1.6;
+}
+
+.btn-supprimer {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #8b0000;
+    font-size: 1.2em;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+.btn-supprimer:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.retour {
+    display: block;
+    text-align: center;
+    margin-top: 50px;
+    text-decoration: none;
+    color: #8b5a2b;
+    font-family: 'MedievalSharp', cursive;
+
+/* Style des boutons d'action sur les fiches */
+.actions-fiche {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-action {
+    background: none;
+    border: 1px solid #8b5a2b;
+    font-family: 'MedievalSharp', cursive;
+    cursor: pointer;
+    font-size: 0.8em;
+    padding: 3px 8px;
+    transition: 0.3s;
+}
+
+.btn-action.edit { color: #4a3728; border-color: #8b5a2b; }
+.btn-action.edit:hover { background: #8b5a2b; color: white; }
+
+.btn-action.delete { color: #8b0000; border-color: #8b0000; }
+.btn-action.delete:hover { background: #8b0000; color: white; }
+}
