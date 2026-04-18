@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lexique Draekovare</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="grimoire">
+        <nav class="navigation-velkare">
+            <div class="diams left"></div>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li class="separator">✦</li>
+                <li><a href="persos.html">Personnages</a></li>
+                <li class="separator">✦</li>
+                <li><a href="lexique.html">Lexique</a></li>
+            </ul>
+            <div class="diams right"></div>
+        </nav>
+
+        <h1>Lexique Ancien</h1>
+
+        <div class="formulaire-ajout">
+            <h3>Consigner un nouveau terme</h3>
+            <input type="text" id="terme" placeholder="Nom du terme (ex: Velkare)">
+            <input type="text" id="categorie" placeholder="Catégorie (Lieu, Magie, Race...)">
+            <textarea id="definition" rows="4" placeholder="Définition du terme..."></textarea>
+            
+            <button id="btnAjouterLexique">Inscrire au Lexique</button>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #8b5a2b; margin: 40px 0; opacity: 0.3;">
+
+        <div id="liste-lexique"></div>
+
+        <a href="index.html" class="retour">« Retour à l'accueil</a>
+    </div>
+
+    <script src="gestion_lexique.js"></script>
+</body>
+</html>
