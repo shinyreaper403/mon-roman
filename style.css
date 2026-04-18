@@ -276,4 +276,24 @@ h1::after {
 
 .btn-action.delete { color: #8b0000; border-color: #8b0000; }
 .btn-action.delete:hover { background: #8b0000; color: white; }
+
+   /* Adaptation pour téléphone */
+@media (max-width: 600px) {
+    .grimoire {
+        padding: 20px;
+        border-width: 5px;
+    }
+    .navigation-velkare ul {
+        flex-direction: column; /* Menu vertical sur mobile */
+        gap: 10px;
+    }
+    .display-perso {
+        flex-direction: column; /* Image au-dessus du texte sur mobile */
+        align-items: center;
+    }
+    .photo-perso img {
+        width: 100%;
+        height: auto;
+    }
+}
 }
