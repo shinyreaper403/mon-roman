@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Cartographie Ancestrale - Velkare</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="grimoire">
+        <h1>Terres de Velkare</h1>
+
+        <nav class="navigation-velkare">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="persos.html">Héros</a></li>
+                <li><a href="bestiaire.html">Bestiaire</a></li>
+                <li><a href="lexique.html">Lexique</a></li>
+                <li><a href="notes.html">Notes</a></li>
+                <li><a href="carte.html" style="color:#e3d3ad">Carte</a></li>
+            </ul>
+        </nav>
+
+        <p class="intro-text">Molette pour zoomer, clic-gauche maintenu pour déplacer la carte.</p>
+
+        <div id="conteneurCarte" class="carte-wrapper">
+            <div id="carteDynamique">
+                <img src="carte.png" id="imageCarte" alt="Carte du monde">
+                <div id="pinsContainer"></div>
+            </div>
+        </div>
+
+        <div id="formPoint" class="modal-fiche" style="display:none;">
+            <div class="modal-contenu" style="max-width:400px; flex-direction: column;">
+                <span class="fermer-modal" id="cancelPoint">&times;</span>
+                <h3>Nouveau Lieu</h3>
+                <input type="text" id="nomLieu" placeholder="Nom du lieu">
+                <textarea id="descLieu" placeholder="Description..." rows="4"></textarea>
+                <button id="savePoint">Graver dans la pierre</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="recherche.js"></script>
+    <script src="gestion_carte.js"></script>
+</body>
+</html>

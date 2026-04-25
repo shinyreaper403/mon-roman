@@ -162,3 +162,446 @@ input:focus, textarea:focus {
 .formulaire-ajout h3, .formulaire-ajout label, .fiche-lexique h3 {
     color: #e3d3ad !important;
 }
+
+.grille-notes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.note-card {
+    background: rgba(227, 211, 173, 0.05);
+    border: 1px solid rgba(227, 211, 173, 0.1);
+    padding: 20px;
+    text-align: left;
+    position: relative;
+}
+
+.note-card h4 {
+    margin: 0 0 10px 0;
+    color: #e3d3ad;
+    font-family: 'Cinzel', serif;
+}
+
+.note-card p {
+    font-size: 0.9em;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.tag {
+    background: rgba(227, 211, 173, 0.1);
+    color: #868177;
+    font-size: 0.7em;
+    padding: 2px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(227, 211, 173, 0.2);
+}
+
+/* --- SYSTÈME DE CARTOGRAPHIE --- */
+.carte-wrapper {
+    position: relative;
+    display: inline-block;
+    background: #0d0e10;
+    border: 2px solid rgba(227, 211, 173, 0.2);
+    line-height: 0;
+    cursor: crosshair;
+    max-width: 100%;
+}
+
+#imageCarte {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.pin {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: #e3d3ad;
+    border: 2px solid #141619;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: 0 0 10px rgba(227, 211, 173, 0.5);
+}
+
+/* La bulle d'information */
+.pin-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    background: #141619;
+    color: #e3d3ad;
+    text-align: center;
+    padding: 15px;
+    border: 1px solid #e3d3ad;
+    position: absolute;
+    bottom: 25px; /* Décalage pour être au dessus du point */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    z-index: 200;
+    transition: all 0.2s ease-in-out;
+    pointer-events: auto; /* Permet de cliquer dans la bulle */
+    line-height: 1.4;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+/* Zone invisible pour empêcher la bulle de se fermer entre le point et la bulle */
+.pin-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: transparent;
+}
+
+/* Affichage au survol du point OU de la bulle elle-même */
+.pin:hover .pin-tooltip, 
+.pin-tooltip:hover {
+    visibility: visible;
+    opacity: 1;
+    bottom: 30px;
+}
+
+.btn-suppr-carte {
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid #ff3300;
+    color: #ff3300;
+    font-size: 10px;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-suppr-carte:hover {
+    background: #ff3300;
+    color: white;
+}
+
+.grille-bestiaire {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.carte-monstre {
+    background: rgba(40, 20, 20, 0.4); /* Teinte un peu plus rouge/sombre */
+    border: 1px solid rgba(255, 0, 0, 0.2);
+    padding: 20px;
+    text-align: left;
+    position: relative;
+    border-radius: 4px;
+}
+
+.carte-monstre h4 {
+    color: #ff4444; /* Rouge pour le danger */
+    font-family: 'Cinzel', serif;
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.danger-badge {
+    font-size: 0.7em;
+    padding: 2px 6px;
+    border: 1px solid;
+    text-transform: uppercase;
+    float: right;
+}
+
+/* Couleurs selon le danger */
+.Inoffensif { color: #88ff88; border-color: #88ff88; }
+.Mineur { color: #eeee88; border-color: #eeee88; }
+.Majeur { color: #ff8844; border-color: #ff8844; }
+.Legendaire { color: #ff4444; border-color: #ff4444; box-shadow: 0 0 10px rgba(255,0,0,0.3); }
+
+.stat-ligne {
+    font-size: 0.85em;
+    margin: 10px 0;
+    border-bottom: 1px dashed rgba(227, 211, 173, 0.2);
+    padding-bottom: 5px;
+}
+
+/* Style pour les liens entre les pages */
+.lien-interne {
+    color: #e3d3ad;
+    text-decoration: none;
+    border-bottom: 1px dashed #e3d3ad;
+    padding: 2px 4px;
+    background: rgba(227, 211, 173, 0.1);
+    transition: all 0.3s;
+}
+
+.lien-interne:hover {
+    background: #e3d3ad;
+    color: #141619;
+}
+
+/* Ajustement des selects (listes déroulantes) */
+select {
+    background: #141619;
+    color: #e3d3ad;
+    border: 1px solid #e3d3ad;
+    padding: 8px;
+    font-family: 'Cinzel', serif; /* Ou ta police principale */
+    cursor: pointer;
+}
+
+select option {
+    background: #141619;
+    color: #e3d3ad;
+}
+
+.histoire-bloc {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(0,0,0,0.2);
+    border-left: 3px solid #e3d3ad;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+/* --- SYSTÈME DE CARTE AVANCÉ --- */
+.carte-wrapper {
+    position: relative;
+    width: 100%;
+    height: 650px; /* Ajuste selon la taille de ton grimoire */
+    background: #0d0e10;
+    border: 2px solid rgba(227, 211, 173, 0.3);
+    overflow: hidden; /* Cache ce qui dépasse au zoom */
+    cursor: crosshair;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+}
+
+/* Le groupe Image + Points */
+#carteDynamique {
+    position: absolute;
+    transform-origin: 0 0; /* Important pour le calcul du zoom */
+    cursor: grab;
+    line-height: 0;
+}
+
+#carteDynamique:active {
+    cursor: grabbing;
+}
+
+#imageCarte {
+    display: block;
+    max-height: none !important;
+    max-width: none !important;
+    user-select: none;
+    -webkit-user-drag: none; /* Empêche le navigateur de déplacer l'image */
+}
+
+#pinsContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Laisse passer le clic vers la carte */
+}
+
+/* Style des épingles (points) */
+.pin {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: #e3d3ad;
+    border: 2px solid #141619;
+    border-radius: 50%;
+    transform: translate(-50%, -50%); /* Centre le point sur le clic */
+    pointer-events: auto; /* Réactive le clic pour les points */
+    z-index: 10;
+    box-shadow: 0 0 10px rgba(227, 211, 173, 0.5);
+    transition: transform 0.2s;
+}
+
+.pin:hover {
+    transform: translate(-50%, -50%) scale(1.3);
+    background: #fff;
+}
+
+/* Bulle d'info au survol */
+.pin-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    background: #141619;
+    color: #e3d3ad;
+    padding: 10px;
+    border: 1px solid #e3d3ad;
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    z-index: 100;
+    pointer-events: auto;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.pin:hover .pin-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.btn-suppr-carte {
+    background: none;
+    border: 1px solid #ff3300;
+    color: #ff3300;
+    font-size: 10px;
+    margin-top: 8px;
+    cursor: pointer;
+    padding: 2px 5px;
+}
+
+.btn-suppr-carte:hover {
+    background: #ff3300;
+    color: white;
+}
+/* ============================================================
+   1. STYLE DES BOUTONS (POUR L'ÉCRAN)
+   ============================================================ */
+.btn-action, #toggleBestiaire, #toggleFormPerso, #savePoint, #savePerso, .btn-export {
+    background-color: #4a0404 !important; /* Rouge Sceau de cire */
+    color: #e3d3ad !important;            /* Texte doré */
+    border: 2px solid #634a31 !important;
+    padding: 10px 20px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-block;
+    margin: 10px 5px;
+    transition: 0.3s;
+}
+
+.btn-action:hover, .btn-export:hover {
+    background-color: #e3d3ad !important;
+    color: #4a0404 !important;
+    box-shadow: 0 0 15px rgba(227, 211, 173, 0.4);
+}
+
+/* ============================================================
+   2. LE SCEAU DE L'ARCHIVISTE (POUR LE PDF)
+   ============================================================ */
+@media print {
+    /* On cache l'interface */
+    nav, .navigation-velkare, button, .btn-action, .btn-export, 
+    .fermer-modal, #globalSearch, h1, .formulaire-ajout, .btn-suppr-carte {
+        display: none !important;
+    }
+
+    body {
+        background: white !important; /* Pour économiser l'encre */
+    }
+
+    /* Le Parchemin en version PDF */
+    .modal-contenu, .carte-monstre {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        background-color: #f2e3c9 !important;
+        background-image: radial-gradient(circle at center, #fdf5e6 0%, #f2e3c9 100%) !important;
+        color: #2b1a0e !important;
+        padding: 60px !important;
+        margin: 0 auto !important;
+        width: 100% !important;
+        border: 1px solid #634a31 !important;
+        outline: 2px solid #634a31 !important;
+        outline-offset: -15px !important;
+        display: block !important;
+        min-height: 95vh;
+    }
+
+    h2 {
+        color: #5e0b0b !important;
+        font-family: 'Cinzel', serif !important;
+        text-align: center !important;
+        font-size: 30pt !important;
+        border-bottom: 2px solid #634a31 !important;
+        margin-bottom: 30px !important;
+    }
+
+    .histoire-bloc {
+        background: rgba(0,0,0,0.05) !important;
+        border-left: 5px solid #5e0b0b !important;
+        padding: 20px !important;
+        font-style: italic !important;
+    }
+}
+
+    /* Le Parchemin */
+    .modal-contenu {
+    position: relative;
+    background-color: #f2e3c9;
+    background-image: 
+        linear-gradient(to right, rgba(0,0,0,0.05) 0%, transparent 5%, transparent 95%, rgba(0,0,0,0.05) 100%),
+        radial-gradient(circle at center, #fdf5e6 0%, #f2e3c9 100%);
+    color: #2b1a0e;
+    padding: 50px;
+    border: 1px solid #d2b48c;
+    border-radius: 5px 15px 3px 20px / 15px 5px 20px 3px;
+    outline: 2px solid #634a31;
+    outline-offset: -12px;
+    max-width: 700px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+}
+    }
+
+    /* Titres en rouge carmin */
+    h2, h3, h4 {
+        color: #5e0b0b !important;
+        font-family: 'Cinzel', serif;
+        text-align: center;
+        border-bottom: 2px solid #634a31 !important;
+        padding-bottom: 10px;
+        margin-bottom: 20px !important;
+    }
+
+    /* Blocs de texte stylisés */
+    .histoire-bloc, .stat-ligne {
+        background: rgba(0, 0, 0, 0.05) !important;
+        border-left: 5px solid #634a31 !important;
+        padding: 15px !important;
+        font-style: italic;
+        color: #2a1b0a !important;
+    }
+
+    /* Signature finale */
+    .modal-contenu::after, .carte-monstre::after {
+        content: "📜 Archives Royales de Velkare";
+        display: block;
+        text-align: center;
+        margin-top: 40px;
+        font-family: 'Cinzel', serif;
+        font-size: 0.9em;
+        opacity: 0.7;
+    }
+}
+
+.histoire-bloc p::first-letter {
+    font-family: 'Cinzel', serif;
+    font-size: 3em;
+    float: left;
+    line-height: 0.8;
+    margin-right: 10px;
+    color: #5e0b0b;
+    font-weight: bold;
+}

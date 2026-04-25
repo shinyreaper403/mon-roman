@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Bestiaire Ancestral - Velkare</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="grimoire">
+        <h1>Bestiaire des Terres Sauvages</h1>
+
+        <nav class="navigation-velkare">
+    <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="persos.html">Héros</a></li>
+        <li><a href="bestiaire.html">Bestiaire</a></li> <li><a href="lexique.html">Lexique</a></li>
+        <li><a href="notes.html">Notes</a></li>
+        <li><a href="carte.html">Carte</a></li>
+    </ul>
+</nav>
+
+        <button id="toggleBestiaire" class="btn-action">◈ Recenser une créature ◈</button>
+
+        <section id="zoneFormBestiaire" class="formulaire-ajout" style="display:none;">
+            <h3>Détails de l'entité</h3>
+            <form id="formBestiaire">
+                <input type="text" id="nomMonstre" placeholder="Nom de la créature" required>
+                <select id="dangerMonstre">
+                    <option value="Inoffensif">Inoffensif</option>
+                    <option value="Mineur">Menace Mineure</option>
+                    <option value="Majeur">Menace Majeure</option>
+                    <option value="Legendaire">Légendaire / Boss</option>
+                </select>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" id="pvMonstre" placeholder="Points de Vie (PV)" style="flex:1;">
+                    <input type="text" id="habitatMonstre" placeholder="Habitat (ex: Grottes)" style="flex:1;">
+                </div>
+                <textarea id="capaciteMonstre" placeholder="Capacités spéciales ou faiblesses..."></textarea>
+                <button type="submit">Inscrire au Bestiaire</button>
+            </form>
+        </section>
+
+        <div id="listeBestiaire" class="grille-bestiaire"></div>
+    </div>
+
+    <script src="recherche.js"></script>
+    <script src="gestion_bestiaire.js"></script>
+</body>
+</html>
+<button onclick="window.print()" class="btn-action">📜 Sceller en PDF (Export)</button>

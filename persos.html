@@ -2,58 +2,52 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Personnages - Archives Ancestrales</title>
+    <title>Héros de Velkare - Archives</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="grimoire">
-        <div class="header-tools">
-            <div class="recherche-mini">
-                <span style="opacity: 0.5;">🔎</span>
-                <input type="text" id="globalSearch" placeholder="Rechercher..." autocomplete="off">
-                <div id="resultatsRecherche" class="results-dropdown"></div>
-            </div>
-        </div>
-
-        <h1>Les Héros de Velkare</h1>
+        <h1>Registre des Héros</h1>
 
         <nav class="navigation-velkare">
             <ul>
                 <li><a href="index.html">Accueil</a></li>
-                <li><a href="persos.html" style="color:#e3d3ad">Personnages</a></li>
+                <li><a href="persos.html" style="color:#e3d3ad">Héros</a></li>
+                <li><a href="bestiaire.html">Bestiaire</a></li>
                 <li><a href="lexique.html">Lexique</a></li>
+                <li><a href="notes.html">Notes</a></li>
+                <li><a href="carte.html">Carte</a></li>
             </ul>
         </nav>
 
-        <div style="margin-bottom: 30px;">
-            <button id="toggleFormBtn">◈ Inscrire un nouveau Héros ◈</button>
-        </div>
+        <button id="toggleFormPerso" class="btn-action">◈ Inscrire un nouveau Héros ◈</button>
 
-        <section id="zoneFormulaire" class="formulaire-ajout" style="display: none;">
-            <h3>Nouveau Compagnon</h3>
+        <section id="zoneFormPerso" class="formulaire-ajout" style="display:none;">
             <form id="formPerso">
-                <input type="text" id="nomPerso" placeholder="Nom du Héros" required>
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="racePerso" placeholder="Race (ex: Elfe, Nain...)">
-                    <input type="text" id="classePerso" placeholder="Classe (ex: Mage, Guerrier...)">
+                <input type="text" id="nom" placeholder="Nom du Héros" required>
+                <input type="text" id="role" placeholder="Classe / Titre (ex: Mage de Sang)">
+                
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                    <select id="lieuPerso" style="flex:1;">
+                        <option value="">-- Lieu de naissance --</option>
+                    </select>
+                    <select id="nemesisPerso" style="flex:1;">
+                        <option value="">-- Némésis --</option>
+                    </select>
                 </div>
-                <input type="text" id="alignPerso" placeholder="Alignement (ex: Loyal Bon)">
-                <textarea id="histoirePerso" placeholder="Racontez sa légende ici..." rows="5"></textarea>
-                <label style="display: block; margin-bottom: 10px; color: #868177;">Portrait du Héros :</label>
-                <input type="file" id="photoPerso" accept="image/*">
+
+                <textarea id="histoire" placeholder="Racontez sa légende..."></textarea>
                 <button type="submit">Graver dans les Archives</button>
             </form>
         </section>
 
-        <hr>
+        <div id="listePersos" class="grille-persos"></div>
 
-        <div id="listePersos"></div>
-    </div>
-
-    <div id="modalFiche" class="modal-fiche">
-        <div class="modal-contenu">
-            <span class="fermer-modal" id="fermerModal">&times;</span>
-            <div id="contenuFicheComplete"></div>
+        <div id="modalePerso" class="modal-fiche" style="display:none;">
+            <div class="modal-contenu">
+                <span class="fermer-modal">&times;</span>
+                <div id="detailsPerso"></div>
+            </div>
         </div>
     </div>
 
@@ -61,3 +55,4 @@
     <script src="gestion_persos.js"></script>
 </body>
 </html>
+<button onclick="window.print()" class="btn-action">📜 Sceller en PDF (Export)</button>

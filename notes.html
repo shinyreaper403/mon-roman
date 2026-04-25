@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes Secrètes - Archives Ancestrales</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="grimoire">
+        <h1>Carnet de Notes</h1>
+
+   <nav class="navigation-velkare">
+    <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="persos.html">Héros</a></li>
+        <li><a href="bestiaire.html">Bestiaire</a></li> <li><a href="lexique.html">Lexique</a></li>
+        <li><a href="notes.html">Notes</a></li>
+        <li><a href="carte.html">Carte</a></li>
+    </ul>
+</nav>
+
+        <section class="formulaire-ajout">
+            <h3>Consigner une pensée</h3>
+            <form id="formNote">
+                <input type="text" id="titreNote" placeholder="Titre de la note" required>
+                <textarea id="contenuNote" placeholder="Écrivez ici vos découvertes..." rows="4" required></textarea>
+                <input type="text" id="tagsNote" placeholder="Mots-clés (séparés par des virgules)">
+                <button type="submit">Sceller la note</button>
+            </form>
+        </section>
+
+        <hr>
+
+        <div style="margin-bottom: 30px;">
+            <input type="text" id="searchNotes" placeholder="Filtrer par mot-clé ou titre..." style="border-bottom: 1px solid #e3d3ad;">
+        </div>
+
+        <div id="listeNotes" class="grille-notes"></div>
+    </div>
+
+    <script src="gestion_notes.js"></script>
+</body>
+</html>
